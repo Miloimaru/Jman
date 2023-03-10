@@ -44,4 +44,15 @@ public final class GhostMapParser extends MapParser {
                 super.addSquare(grid, ghosts, startPositions, x, y, c);
         }
     }
+    @Override
+    protected void addYSquare(Square[][] grid, List<Ghost> ghosts,
+                             List<Square> startPositions, int x, int y, char c) {
+        switch (c) {
+            case 'C':
+                grid[x][y] = makeGhostSquare(ghosts, ghostFactory.createClyde());
+                break;
+            default:
+                super.addYSquare(grid, ghosts, startPositions, x, y, c);
+        }
+    }
 }

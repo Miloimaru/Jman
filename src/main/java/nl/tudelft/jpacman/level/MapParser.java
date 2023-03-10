@@ -35,9 +35,9 @@ public class MapParser {
      * Creates a new map parser.
      *
      * @param levelFactory
-     *            The factory providing the NPC objects and the level.
+     *                     The factory providing the NPC objects and the level.
      * @param boardFactory
-     *            The factory providing the Square objects and the board.
+     *                     The factory providing the Square objects and the board.
      */
     public MapParser(LevelFactory levelFactory, BoardFactory boardFactory) {
         this.levelCreator = levelFactory;
@@ -76,12 +76,37 @@ public class MapParser {
         return levelCreator.createLevel(board, ghosts, startPositions);
     }
 
+    public Level parseYMap(char[][] map) {
+        int width = map.length;
+        int height = map[0].length;
+
+        Square[][] grid = new Square[width][height];
+
+        List<Ghost> ghosts = new ArrayList<>();
+        List<Square> startPositions = new ArrayList<>();
+
+        makeYGrid(map, width, height, grid, ghosts, startPositions);
+
+        Board board = boardCreator.createBoard(grid);
+        return levelCreator.createLevel(board, ghosts, startPositions);
+    }
+
     private void makeGrid(char[][] map, int width, int height,
-                          Square[][] grid, List<Ghost> ghosts, List<Square> startPositions) {
+            Square[][] grid, List<Ghost> ghosts, List<Square> startPositions) {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 char c = map[x][y];
                 addSquare(grid, ghosts, startPositions, x, y, c);
+            }
+        }
+    }
+
+    private void makeYGrid(char[][] map, int width, int height,
+            Square[][] grid, List<Ghost> ghosts, List<Square> startPositions) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                char c = map[x][y];
+                addYSquare(grid, ghosts, startPositions, x, y, c);
             }
         }
     }
@@ -92,22 +117,22 @@ public class MapParser {
      * of square.
      *
      * @param grid
-     *            The grid of squares with board[x][y] being the
-     *            square at column x, row y.
+     *                       The grid of squares with board[x][y] being the
+     *                       square at column x, row y.
      * @param ghosts
-     *            List of all ghosts that were added to the map.
+     *                       List of all ghosts that were added to the map.
      * @param startPositions
-     *            List of all start positions that were added
-     *            to the map.
+     *                       List of all start positions that were added
+     *                       to the map.
      * @param x
-     *            x coordinate of the square.
+     *                       x coordinate of the square.
      * @param y
-     *            y coordinate of the square.
+     *                       y coordinate of the square.
      * @param c
-     *            Character describing the square type.
+     *                       Character describing the square type.
      */
     protected void addSquare(Square[][] grid, List<Ghost> ghosts,
-                             List<Square> startPositions, int x, int y, char c) {
+            List<Square> startPositions, int x, int y, char c) {
         switch (c) {
             case ' ':
                 grid[x][y] = boardCreator.createGround();
@@ -131,7 +156,36 @@ public class MapParser {
                 break;
             default:
                 throw new PacmanConfigurationException("Invalid character at "
-                    + x + "," + y + ": " + c);
+                        + x + "," + y + ": " + c);
+        }
+    }
+
+    protected void addYSquare(Square[][] grid, List<Ghost> ghosts,
+            List<Square> startPositions, int x, int y, char c) {
+        switch (c) {
+            case ' ':
+                grid[x][y] = boardCreator.createYGround();
+                break;
+            case '#':
+                grid[x][y] = boardCreator.createWall();
+                break;
+            case '.':
+                Square pelletSquare = boardCreator.createYGround();
+                grid[x][y] = pelletSquare;
+                levelCreator.createPellet().occupy(pelletSquare);
+                break;
+            case 'G':
+                Square ghostSquare = makeGhostSquare(ghosts, levelCreator.createGhost());
+                grid[x][y] = ghostSquare;
+                break;
+            case 'P':
+                Square playerSquare = boardCreator.createYGround();
+                grid[x][y] = playerSquare;
+                startPositions.add(playerSquare);
+                break;
+            default:
+                throw new PacmanConfigurationException("Invalid character at "
+                        + x + "," + y + ": " + c);
         }
     }
 
@@ -139,8 +193,9 @@ public class MapParser {
      * creates a Square with the specified ghost on it
      * and appends the placed ghost into the ghost list.
      *
-     * @param ghosts all the ghosts in the level so far, the new ghost will be appended
-     * @param ghost the newly created ghost to be placed
+     * @param ghosts all the ghosts in the level so far, the new ghost will be
+     *               appended
+     * @param ghost  the newly created ghost to be placed
      * @return a square with the ghost on it.
      */
     protected Square makeGhostSquare(List<Ghost> ghosts, Ghost ghost) {
@@ -155,11 +210,12 @@ public class MapParser {
      * passes it on to {@link #parseMap(char[][])}.
      *
      * @param text
-     *            The plain text, with every entry in the list being a equally
-     *            sized row of squares on the board and the first element being
-     *            the top row.
+     *             The plain text, with every entry in the list being a equally
+     *             sized row of squares on the board and the first element being
+     *             the top row.
      * @return The level as represented by the text.
-     * @throws PacmanConfigurationException If text lines are not properly formatted.
+     * @throws PacmanConfigurationException If text lines are not properly
+     *                                      formatted.
      */
     public Level parseMap(List<String> text) {
 
@@ -177,33 +233,50 @@ public class MapParser {
         return parseMap(map);
     }
 
+    public Level parseYMap(List<String> text) {
+
+        checkMapFormat(text);
+
+        int height = text.size();
+        int width = text.get(0).length();
+
+        char[][] map = new char[width][height];
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                map[x][y] = text.get(y).charAt(x);
+            }
+        }
+        return parseYMap(map);
+    }
+
     /**
      * Check the correctness of the map lines in the text.
+     * 
      * @param text Map to be checked
      * @throws PacmanConfigurationException if map is not OK.
      */
     private void checkMapFormat(List<String> text) {
         if (text == null) {
             throw new PacmanConfigurationException(
-                "Input text cannot be null.");
+                    "Input text cannot be null.");
         }
 
         if (text.isEmpty()) {
             throw new PacmanConfigurationException(
-                "Input text must consist of at least 1 row.");
+                    "Input text must consist of at least 1 row.");
         }
 
         int width = text.get(0).length();
 
         if (width == 0) {
             throw new PacmanConfigurationException(
-                "Input text lines cannot be empty.");
+                    "Input text lines cannot be empty.");
         }
 
         for (String line : text) {
             if (line.length() != width) {
                 throw new PacmanConfigurationException(
-                    "Input text lines are not of equal width.");
+                        "Input text lines are not of equal width.");
             }
         }
     }
@@ -213,14 +286,14 @@ public class MapParser {
      * result to {@link #parseMap(List)}.
      *
      * @param source
-     *            The input stream that will be read.
+     *               The input stream that will be read.
      * @return The parsed level as represented by the text on the input stream.
      * @throws IOException
-     *             when the source could not be read.
+     *                     when the source could not be read.
      */
     public Level parseMap(InputStream source) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-            source, "UTF-8"))) {
+                source, "UTF-8"))) {
             List<String> lines = new ArrayList<>();
             while (reader.ready()) {
                 lines.add(reader.readLine());
@@ -229,26 +302,44 @@ public class MapParser {
         }
     }
 
+    public Level parseYMap(InputStream source) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                source, "UTF-8"))) {
+            List<String> lines = new ArrayList<>();
+            while (reader.ready()) {
+                lines.add(reader.readLine());
+            }
+            return parseYMap(lines);
+        }
+    }
+
     /**
      * Parses the provided input stream as a character stream and passes it
      * result to {@link #parseMap(List)}.
      *
      * @param mapName
-     *            Name of a resource that will be read.
+     *                Name of a resource that will be read.
      * @return The parsed level as represented by the text on the input stream.
      * @throws IOException
-     *             when the resource could not be read.
+     *                     when the resource could not be read.
      */
-    @SuppressFBWarnings(
-        value = {"OBL_UNSATISFIED_OBLIGATION", "RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"},
-        justification = "try with resources always cleans up / false positive in java 11"
-    )
+    @SuppressFBWarnings(value = { "OBL_UNSATISFIED_OBLIGATION",
+            "RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" }, justification = "try with resources always cleans up / false positive in java 11")
     public Level parseMap(String mapName) throws IOException {
         try (InputStream boardStream = MapParser.class.getResourceAsStream(mapName)) {
             if (boardStream == null) {
                 throw new PacmanConfigurationException("Could not get resource for: " + mapName);
             }
             return parseMap(boardStream);
+        }
+    }
+
+    public Level parseYMap(String mapName) throws IOException {
+        try (InputStream boardStream = MapParser.class.getResourceAsStream(mapName)) {
+            if (boardStream == null) {
+                throw new PacmanConfigurationException("Could not get resource for: " + mapName);
+            }
+            return parseYMap(boardStream);
         }
     }
 

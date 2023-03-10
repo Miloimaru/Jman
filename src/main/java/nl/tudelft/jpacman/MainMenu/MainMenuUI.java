@@ -2,7 +2,6 @@ package nl.tudelft.jpacman.MainMenu;
 
 import nl.tudelft.jpacman.Launcher;
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -60,20 +59,15 @@ public class MainMenuUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
             System.out.println("Starting game...");
-            this.setVisible(false);
+            Launcher.mainmenu.setVisible(false);
             new Launcher().launch();
+            System.out.println(Launcher.thememenu);
         } else if (e.getSource() == themeButton) {
             System.out.println("Changing theme...");
-            // code to change the theme
+            Launcher.themeMenuOpen();
         } else if (e.getSource() == exitButton) {
             System.exit(0);
         }
     }
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            MainMenuUI menu = new MainMenuUI();
-            menu.setVisible(true);
-        });
-    }
 }

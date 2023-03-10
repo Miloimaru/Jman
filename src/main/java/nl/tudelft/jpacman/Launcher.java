@@ -21,6 +21,7 @@ import nl.tudelft.jpacman.ui.Action;
 import nl.tudelft.jpacman.ui.PacManUI;
 import nl.tudelft.jpacman.ui.PacManUiBuilder;
 import nl.tudelft.jpacman.MainMenu.MainMenuUI;
+import nl.tudelft.jpacman.ThemeMenu.ThemeMenu;
 
 /**
  * Creates and launches the JPacMan UI.
@@ -36,6 +37,9 @@ public class Launcher {
     private String levelMap = DEFAULT_MAP;
     private PacManUI pacManUI;
     private Game game;
+    private static int themetype = 0;
+    public static MainMenuUI mainmenu = new MainMenuUI();
+    public static ThemeMenu thememenu = new ThemeMenu();
 
     /**
      * @return The game object this launcher will start when {@link #launch()}
@@ -88,13 +92,28 @@ public class Launcher {
      *
      * @return A new level.
      */
+    private Level mapparser;
+
     public Level makeLevel() {
-        try {
-            return getMapParser().parseMap(getLevelMap());
-        } catch (IOException e) {
-            throw new PacmanConfigurationException(
-                    "Unable to create level, name = " + getLevelMap(), e);
+        System.out.println(thememenu.getThemeType());
+        themetype = thememenu.getThemeType();
+        if (thememenu.getThemeType() == 0) {
+            try {
+                mapparser = getMapParser().parseMap(getLevelMap());
+            } catch (IOException e) {
+                throw new PacmanConfigurationException(
+                        "Unable to create level, name = " + getLevelMap(), e);
+            }
+        } else if (thememenu.getThemeType() == 1) {
+            try {
+                mapparser = getMapParser().parseYMap(getLevelMap());
+            } catch (IOException e) {
+                throw new PacmanConfigurationException(
+                        "Unable to create level, name = " + getLevelMap(), e);
+            }
         }
+        return mapparser;
+
     }
 
     /**
@@ -189,8 +208,24 @@ public class Launcher {
 
     }
 
-    public void Menu() {
-        MainMenuUI.main(null);
+    public static void MenuOpen() {
+        mainmenu.setVisible(true);
+        System.out.println("menu in launch game...");
+        thememenu.setVisible(false);
+        System.out.println("close menu in launch game...");
+
+    }
+
+    public static void themeMenuOpen() {
+        mainmenu.setVisible(false);
+        System.out.println("close menu in launch game...");
+        thememenu.setVisible(true);
+        System.out.println("theme menu game...");
+    }
+
+    public static int ThemeType() {
+        themetype = thememenu.getThemeType();
+        return themetype;
     }
 
     /**
@@ -212,7 +247,9 @@ public class Launcher {
      * @throws IOException
      *                     When a resource could not be read.
      */
+
     public static void main(String[] args) throws IOException {
-        new Launcher().Menu();
+        Launcher.MenuOpen();
     }
+
 }

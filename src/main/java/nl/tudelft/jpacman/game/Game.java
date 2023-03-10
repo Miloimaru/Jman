@@ -113,4 +113,8 @@ public abstract class Game implements LevelObserver {
     public void levelLost() {
         stop();
     }
+
+    public Object setTheme(int i) {
+        return null;
+    }
 }

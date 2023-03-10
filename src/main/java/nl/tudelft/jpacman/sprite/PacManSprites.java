@@ -126,6 +126,9 @@ public class PacManSprites extends SpriteStore {
         return loadSprite("/sprite/floor.png");
     }
 
+    public Sprite getYGroundSprite() {
+        return loadSprite("/sprite/floor_yellow.png");
+    }
     /**
      * @return The sprite for the
      */
