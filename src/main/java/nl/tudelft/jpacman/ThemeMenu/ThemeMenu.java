@@ -15,7 +15,7 @@ import javax.swing.SwingConstants;
 
 public class ThemeMenu extends JFrame implements ActionListener {
 
-    private JButton themeOneButton, BackMenu, themeTwoButton, themeThreeButton;
+    private JButton themeOneButton, BackMenu, themeTwoButton, themeThreeButton, themeButton;
     private JLabel title;
     private int themeType = 0;
 
@@ -38,17 +38,21 @@ public class ThemeMenu extends JFrame implements ActionListener {
         title.setFont(new Font("Serif", Font.BOLD, 30));
         titlePanel.add(title);
 
-        themeOneButton = new JButton("Theme 1");
+        themeOneButton = new JButton("Go!!Basketball");
         themeOneButton.addActionListener(this);
         buttonPanel.add(themeOneButton);
 
-        themeTwoButton = new JButton("Theme 2");
+        themeTwoButton = new JButton("StarCosmic");
         themeTwoButton.addActionListener(this);
         buttonPanel.add(themeTwoButton);
 
-        themeThreeButton = new JButton("Theme 3");
+        themeThreeButton = new JButton("ChristmasHoliday");
         themeThreeButton.addActionListener(this);
         buttonPanel.add(themeThreeButton);
+
+        themeButton = new JButton("Classic");
+        themeButton.addActionListener(this);
+        buttonPanel.add(themeButton);
 
         BackMenu = new JButton("Main menu");
         BackMenu.addActionListener(this);
@@ -73,10 +77,13 @@ public class ThemeMenu extends JFrame implements ActionListener {
             themeType = 1;
         } else if (e.getSource() == themeTwoButton) {
             System.out.println("Changing theme 2...");
-            // code to change the theme
+            themeType = 2;
         } else if (e.getSource() == themeThreeButton) {
             System.out.println("Changing theme 3...");
-            // code to change the theme
+            themeType = 3;
+        } else if (e.getSource() == themeButton) {
+            System.out.println("Changing theme 3...");
+            themeType = 0;
         } else if (e.getSource() == BackMenu) {
             Launcher.MenuOpen();
         }

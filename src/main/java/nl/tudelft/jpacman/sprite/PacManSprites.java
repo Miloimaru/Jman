@@ -11,7 +11,7 @@ import nl.tudelft.jpacman.npc.ghost.GhostColor;
 /**
  * Sprite Store containing the classic Pac-Man sprites.
  *
- * @author Jeroen Roosen 
+ * @author Jeroen Roosen
  */
 public class PacManSprites extends SpriteStore {
 
@@ -20,10 +20,10 @@ public class PacManSprites extends SpriteStore {
      * array denotes the order.
      */
     private static final Direction[] DIRECTIONS = {
-        Direction.NORTH,
-        Direction.EAST,
-        Direction.SOUTH,
-        Direction.WEST
+            Direction.NORTH,
+            Direction.EAST,
+            Direction.SOUTH,
+            Direction.WEST
     };
 
     /**
@@ -66,7 +66,7 @@ public class PacManSprites extends SpriteStore {
 
         Sprite baseImage = loadSprite(resource);
         AnimatedSprite animation = createAnimatedSprite(baseImage, PACMAN_DEATH_FRAMES,
-            ANIMATION_DELAY, false);
+                ANIMATION_DELAY, false);
         animation.setAnimating(false);
 
         return animation;
@@ -76,9 +76,9 @@ public class PacManSprites extends SpriteStore {
      * Returns a new map with animations for all directions.
      *
      * @param resource
-     *            The resource name of the sprite.
+     *                 The resource name of the sprite.
      * @param frames
-     *            The number of frames in this sprite.
+     *                 The number of frames in this sprite.
      * @return The animated sprite facing the given direction.
      */
     private Map<Direction, Sprite> directionSprite(String resource, int frames) {
@@ -87,9 +87,9 @@ public class PacManSprites extends SpriteStore {
         Sprite baseImage = loadSprite(resource);
         for (int i = 0; i < DIRECTIONS.length; i++) {
             Sprite directionSprite = baseImage.split(0, i * SPRITE_SIZE, frames
-                * SPRITE_SIZE, SPRITE_SIZE);
+                    * SPRITE_SIZE, SPRITE_SIZE);
             AnimatedSprite animation = createAnimatedSprite(directionSprite,
-                frames, ANIMATION_DELAY, true);
+                    frames, ANIMATION_DELAY, true);
             animation.setAnimating(true);
             sprite.put(DIRECTIONS[i], animation);
         }
@@ -101,14 +101,14 @@ public class PacManSprites extends SpriteStore {
      * Returns a map of animated ghost sprites for all directions.
      *
      * @param color
-     *            The colour of the ghost.
+     *              The colour of the ghost.
      * @return The Sprite for the ghost.
      */
     public Map<Direction, Sprite> getGhostSprite(GhostColor color) {
         assert color != null;
 
         String resource = "/sprite/ghost_" + color.name().toLowerCase()
-            + ".png";
+                + ".png";
         return directionSprite(resource, GHOST_ANIMATION_FRAMES);
     }
 
@@ -119,6 +119,18 @@ public class PacManSprites extends SpriteStore {
         return loadSprite("/sprite/wall.png");
     }
 
+    public Sprite getBasketballWallSprite() {
+        return loadSprite("/sprite/BasketballWall.png");
+    }
+
+    public Sprite getHolidayPelletWallSprite() {
+        return loadSprite("/sprite/christmasWall.png");
+    }
+
+    public Sprite getStarWallprite() {
+        return loadSprite("/sprite/Starwall.png");
+    }
+
     /**
      * @return The sprite for the ground.
      */
@@ -126,14 +138,27 @@ public class PacManSprites extends SpriteStore {
         return loadSprite("/sprite/floor.png");
     }
 
-    public Sprite getYGroundSprite() {
-        return loadSprite("/sprite/floor_yellow.png");
+    public Sprite getStarGroundSprite() {
+        return loadSprite("/sprite/StarFloor.png");
     }
+
     /**
      * @return The sprite for the
      */
     public Sprite getPelletSprite() {
         return loadSprite("/sprite/pellet.png");
+    }
+
+    public Sprite getStarPelletSprite() {
+        return loadSprite("/sprite/Starpellet.png");
+    }
+
+    public Sprite getBasketballPelletSprite() {
+        return loadSprite("/sprite/basketball.png");
+    }
+
+    public Sprite getHolidayPelletSprite() {
+        return loadSprite("/sprite/christmas_star.png");
     }
 
     /**

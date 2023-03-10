@@ -26,16 +26,16 @@ public final class GhostMapParser extends MapParser {
      * @param ghostFactory the factory to create the ghosts.
      */
     public GhostMapParser(LevelFactory levelFactory, BoardFactory boardFactory,
-                          GhostFactory ghostFactory) {
+            GhostFactory ghostFactory) {
         super(levelFactory, boardFactory);
         this.ghostFactory = ghostFactory;
     }
 
-    //This method only supports clyde for now
-    //You should add extra cases for ghosts you need.
+    // This method only supports clyde for now
+    // You should add extra cases for ghosts you need.
     @Override
     protected void addSquare(Square[][] grid, List<Ghost> ghosts,
-                             List<Square> startPositions, int x, int y, char c) {
+            List<Square> startPositions, int x, int y, char c) {
         switch (c) {
             case 'C':
                 grid[x][y] = makeGhostSquare(ghosts, ghostFactory.createClyde());
@@ -44,15 +44,40 @@ public final class GhostMapParser extends MapParser {
                 super.addSquare(grid, ghosts, startPositions, x, y, c);
         }
     }
+
     @Override
-    protected void addYSquare(Square[][] grid, List<Ghost> ghosts,
-                             List<Square> startPositions, int x, int y, char c) {
+    protected void addBasketballSquare(Square[][] grid, List<Ghost> ghosts,
+            List<Square> startPositions, int x, int y, char c) {
         switch (c) {
             case 'C':
                 grid[x][y] = makeGhostSquare(ghosts, ghostFactory.createClyde());
                 break;
             default:
-                super.addYSquare(grid, ghosts, startPositions, x, y, c);
+                super.addBasketballSquare(grid, ghosts, startPositions, x, y, c);
+        }
+    }
+
+    @Override
+    protected void addHolidaySquare(Square[][] grid, List<Ghost> ghosts,
+            List<Square> startPositions, int x, int y, char c) {
+        switch (c) {
+            case 'C':
+                grid[x][y] = makeGhostSquare(ghosts, ghostFactory.createClyde());
+                break;
+            default:
+                super.addHolidaySquare(grid, ghosts, startPositions, x, y, c);
+        }
+    }
+
+    @Override
+    protected void addStarSquare(Square[][] grid, List<Ghost> ghosts,
+            List<Square> startPositions, int x, int y, char c) {
+        switch (c) {
+            case 'C':
+                grid[x][y] = makeGhostSquare(ghosts, ghostFactory.createClyde());
+                break;
+            default:
+                super.addStarSquare(grid, ghosts, startPositions, x, y, c);
         }
     }
 }

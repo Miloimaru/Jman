@@ -76,7 +76,7 @@ public class MapParser {
         return levelCreator.createLevel(board, ghosts, startPositions);
     }
 
-    public Level parseYMap(char[][] map) {
+    public Level parseStarMap(char[][] map) {
         int width = map.length;
         int height = map[0].length;
 
@@ -85,7 +85,37 @@ public class MapParser {
         List<Ghost> ghosts = new ArrayList<>();
         List<Square> startPositions = new ArrayList<>();
 
-        makeYGrid(map, width, height, grid, ghosts, startPositions);
+        makeStarGrid(map, width, height, grid, ghosts, startPositions);
+
+        Board board = boardCreator.createBoard(grid);
+        return levelCreator.createLevel(board, ghosts, startPositions);
+    }
+
+    public Level parseBasketballMap(char[][] map) {
+        int width = map.length;
+        int height = map[0].length;
+
+        Square[][] grid = new Square[width][height];
+
+        List<Ghost> ghosts = new ArrayList<>();
+        List<Square> startPositions = new ArrayList<>();
+
+        makeBasketballGrid(map, width, height, grid, ghosts, startPositions);
+
+        Board board = boardCreator.createBoard(grid);
+        return levelCreator.createLevel(board, ghosts, startPositions);
+    }
+
+    public Level parseHolidayMap(char[][] map) {
+        int width = map.length;
+        int height = map[0].length;
+
+        Square[][] grid = new Square[width][height];
+
+        List<Ghost> ghosts = new ArrayList<>();
+        List<Square> startPositions = new ArrayList<>();
+
+        makeHolidayGrid(map, width, height, grid, ghosts, startPositions);
 
         Board board = boardCreator.createBoard(grid);
         return levelCreator.createLevel(board, ghosts, startPositions);
@@ -101,12 +131,32 @@ public class MapParser {
         }
     }
 
-    private void makeYGrid(char[][] map, int width, int height,
+    private void makeStarGrid(char[][] map, int width, int height,
             Square[][] grid, List<Ghost> ghosts, List<Square> startPositions) {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 char c = map[x][y];
-                addYSquare(grid, ghosts, startPositions, x, y, c);
+                addStarSquare(grid, ghosts, startPositions, x, y, c);
+            }
+        }
+    }
+
+    private void makeBasketballGrid(char[][] map, int width, int height,
+            Square[][] grid, List<Ghost> ghosts, List<Square> startPositions) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                char c = map[x][y];
+                addBasketballSquare(grid, ghosts, startPositions, x, y, c);
+            }
+        }
+    }
+
+    private void makeHolidayGrid(char[][] map, int width, int height,
+            Square[][] grid, List<Ghost> ghosts, List<Square> startPositions) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                char c = map[x][y];
+                addHolidaySquare(grid, ghosts, startPositions, x, y, c);
             }
         }
     }
@@ -160,26 +210,84 @@ public class MapParser {
         }
     }
 
-    protected void addYSquare(Square[][] grid, List<Ghost> ghosts,
+    protected void addStarSquare(Square[][] grid, List<Ghost> ghosts,
             List<Square> startPositions, int x, int y, char c) {
         switch (c) {
             case ' ':
-                grid[x][y] = boardCreator.createYGround();
+                grid[x][y] = boardCreator.createStarGround();
                 break;
             case '#':
-                grid[x][y] = boardCreator.createWall();
+                grid[x][y] = boardCreator.createStarWall();
                 break;
             case '.':
-                Square pelletSquare = boardCreator.createYGround();
+                Square pelletSquare = boardCreator.createStarGround();
                 grid[x][y] = pelletSquare;
-                levelCreator.createPellet().occupy(pelletSquare);
+                levelCreator.createStarPellet().occupy(pelletSquare);
                 break;
             case 'G':
                 Square ghostSquare = makeGhostSquare(ghosts, levelCreator.createGhost());
                 grid[x][y] = ghostSquare;
                 break;
             case 'P':
-                Square playerSquare = boardCreator.createYGround();
+                Square playerSquare = boardCreator.createStarGround();
+                grid[x][y] = playerSquare;
+                startPositions.add(playerSquare);
+                break;
+            default:
+                throw new PacmanConfigurationException("Invalid character at "
+                        + x + "," + y + ": " + c);
+        }
+    }
+
+    protected void addBasketballSquare(Square[][] grid, List<Ghost> ghosts,
+            List<Square> startPositions, int x, int y, char c) {
+        switch (c) {
+            case ' ':
+                grid[x][y] = boardCreator.createBasketballGround();
+                break;
+            case '#':
+                grid[x][y] = boardCreator.createBasketballWall();
+                break;
+            case '.':
+                Square pelletSquare = boardCreator.createBasketballGround();
+                grid[x][y] = pelletSquare;
+                levelCreator.createBasketballPellet().occupy(pelletSquare);
+                break;
+            case 'G':
+                Square ghostSquare = makeGhostSquare(ghosts, levelCreator.createGhost());
+                grid[x][y] = ghostSquare;
+                break;
+            case 'P':
+                Square playerSquare = boardCreator.createBasketballGround();
+                grid[x][y] = playerSquare;
+                startPositions.add(playerSquare);
+                break;
+            default:
+                throw new PacmanConfigurationException("Invalid character at "
+                        + x + "," + y + ": " + c);
+        }
+    }
+
+    protected void addHolidaySquare(Square[][] grid, List<Ghost> ghosts,
+            List<Square> startPositions, int x, int y, char c) {
+        switch (c) {
+            case ' ':
+                grid[x][y] = boardCreator.createHolidayGround();
+                break;
+            case '#':
+                grid[x][y] = boardCreator.createHolidayWall();
+                break;
+            case '.':
+                Square pelletSquare = boardCreator.createHolidayGround();
+                grid[x][y] = pelletSquare;
+                levelCreator.createHolidayPellet().occupy(pelletSquare);
+                break;
+            case 'G':
+                Square ghostSquare = makeGhostSquare(ghosts, levelCreator.createGhost());
+                grid[x][y] = ghostSquare;
+                break;
+            case 'P':
+                Square playerSquare = boardCreator.createHolidayGround();
                 grid[x][y] = playerSquare;
                 startPositions.add(playerSquare);
                 break;
@@ -233,7 +341,7 @@ public class MapParser {
         return parseMap(map);
     }
 
-    public Level parseYMap(List<String> text) {
+    public Level parseStarMap(List<String> text) {
 
         checkMapFormat(text);
 
@@ -246,7 +354,39 @@ public class MapParser {
                 map[x][y] = text.get(y).charAt(x);
             }
         }
-        return parseYMap(map);
+        return parseStarMap(map);
+    }
+
+    public Level parseBasketballMap(List<String> text) {
+
+        checkMapFormat(text);
+
+        int height = text.size();
+        int width = text.get(0).length();
+
+        char[][] map = new char[width][height];
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                map[x][y] = text.get(y).charAt(x);
+            }
+        }
+        return parseBasketballMap(map);
+    }
+
+    public Level parseHolidayMap(List<String> text) {
+
+        checkMapFormat(text);
+
+        int height = text.size();
+        int width = text.get(0).length();
+
+        char[][] map = new char[width][height];
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                map[x][y] = text.get(y).charAt(x);
+            }
+        }
+        return parseHolidayMap(map);
     }
 
     /**
@@ -302,14 +442,36 @@ public class MapParser {
         }
     }
 
-    public Level parseYMap(InputStream source) throws IOException {
+    public Level parseStarMap(InputStream source) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
                 source, "UTF-8"))) {
             List<String> lines = new ArrayList<>();
             while (reader.ready()) {
                 lines.add(reader.readLine());
             }
-            return parseYMap(lines);
+            return parseStarMap(lines);
+        }
+    }
+
+    public Level parseBasketballMap(InputStream source) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                source, "UTF-8"))) {
+            List<String> lines = new ArrayList<>();
+            while (reader.ready()) {
+                lines.add(reader.readLine());
+            }
+            return parseBasketballMap(lines);
+        }
+    }
+
+    public Level parseHolidayMap(InputStream source) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                source, "UTF-8"))) {
+            List<String> lines = new ArrayList<>();
+            while (reader.ready()) {
+                lines.add(reader.readLine());
+            }
+            return parseHolidayMap(lines);
         }
     }
 
@@ -332,15 +494,35 @@ public class MapParser {
             }
             return parseMap(boardStream);
         }
+
     }
 
-    public Level parseYMap(String mapName) throws IOException {
+    public Level parseStarMap(String mapName) throws IOException {
         try (InputStream boardStream = MapParser.class.getResourceAsStream(mapName)) {
             if (boardStream == null) {
                 throw new PacmanConfigurationException("Could not get resource for: " + mapName);
             }
-            return parseYMap(boardStream);
+            return parseStarMap(boardStream);
         }
+    }
+
+    public Level parseBasketballMap(String mapName) throws IOException {
+        try (InputStream boardStream = MapParser.class.getResourceAsStream(mapName)) {
+            if (boardStream == null) {
+                throw new PacmanConfigurationException("Could not get resource for: " + mapName);
+            }
+            return parseBasketballMap(boardStream);
+        }
+    }
+
+    public Level parseHolidayMap(String mapName) throws IOException {
+        try (InputStream boardStream = MapParser.class.getResourceAsStream(mapName)) {
+            if (boardStream == null) {
+                throw new PacmanConfigurationException("Could not get resource for: " + mapName);
+            }
+            return parseHolidayMap(boardStream);
+        }
+
     }
 
     /**

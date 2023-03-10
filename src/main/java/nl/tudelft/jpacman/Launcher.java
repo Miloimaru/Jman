@@ -37,7 +37,7 @@ public class Launcher {
     private String levelMap = DEFAULT_MAP;
     private PacManUI pacManUI;
     private Game game;
-    private static int themetype = 0;
+    public static int themetype = 0;
     public static MainMenuUI mainmenu = new MainMenuUI();
     public static ThemeMenu thememenu = new ThemeMenu();
 
@@ -106,7 +106,21 @@ public class Launcher {
             }
         } else if (thememenu.getThemeType() == 1) {
             try {
-                mapparser = getMapParser().parseYMap(getLevelMap());
+                mapparser = getMapParser().parseBasketballMap(getLevelMap());
+            } catch (IOException e) {
+                throw new PacmanConfigurationException(
+                        "Unable to create level, name = " + getLevelMap(), e);
+            }
+        } else if (thememenu.getThemeType() == 2) {
+            try {
+                mapparser = getMapParser().parseStarMap(getLevelMap());
+            } catch (IOException e) {
+                throw new PacmanConfigurationException(
+                        "Unable to create level, name = " + getLevelMap(), e);
+            }
+        } else if (thememenu.getThemeType() == 3) {
+            try {
+                mapparser = getMapParser().parseHolidayMap(getLevelMap());
             } catch (IOException e) {
                 throw new PacmanConfigurationException(
                         "Unable to create level, name = " + getLevelMap(), e);

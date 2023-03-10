@@ -61,7 +61,7 @@ public class MainMenuUI extends JFrame implements ActionListener {
             System.out.println("Starting game...");
             Launcher.mainmenu.setVisible(false);
             new Launcher().launch();
-            System.out.println(Launcher.thememenu);
+            System.out.println(Launcher.themetype);
         } else if (e.getSource() == themeButton) {
             System.out.println("Changing theme...");
             Launcher.themeMenuOpen();
