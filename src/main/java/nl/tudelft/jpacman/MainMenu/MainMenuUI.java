@@ -23,7 +23,7 @@ public class MainMenuUI extends JFrame implements ActionListener {
     }
 
     private void initUI() {
-        setTitle("JPacman Main Menu");
+        setTitle("Pacman Main Menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 200);
         setLocationRelativeTo(null);
@@ -31,8 +31,9 @@ public class MainMenuUI extends JFrame implements ActionListener {
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel titlePanel = new JPanel(new FlowLayout());
         JPanel buttonPanel = new JPanel(new FlowLayout());
+        JPanel ExitPanel = new JPanel(new FlowLayout());
 
-        title = new JLabel("JPacman", SwingConstants.CENTER);
+        title = new JLabel("Pacman", SwingConstants.CENTER);
         title.setFont(new Font("Serif", Font.BOLD, 30));
         titlePanel.add(title);
 
@@ -46,10 +47,11 @@ public class MainMenuUI extends JFrame implements ActionListener {
 
         exitButton = new JButton("Exit Game");
         exitButton.addActionListener(this);
-        buttonPanel.add(exitButton);
+        ExitPanel.add(exitButton);
 
         mainPanel.add(titlePanel, BorderLayout.NORTH);
         mainPanel.add(buttonPanel, BorderLayout.CENTER);
+        mainPanel.add(ExitPanel, BorderLayout.SOUTH);
 
         getContentPane().add(mainPanel);
         setVisible(true);
