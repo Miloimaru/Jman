@@ -9,10 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ThemeUI extends JFrame {
-    private JLabel pacLogo, pacWalk;
-    private JButton exitButton, christmasButton, olympicButton, halloweenButton, candyButton, spaceButton, basketballButton;
-    private JButton nameIconbutton,nameIconbutton2,nameIconbutton3,nameIconbutton4,nameIconbutton5;
-    private JTextField textField1;
+    // private JLabel pacLogo, pacWalk;
+    private JButton christmasButton, spaceButton, basketballButton;
+    private JButton nameIconbutton, nameIconbutton2, nameIconbutton3;
+    // private JTextField textField1;
     private JButton startButton;
 
     private JButton imageButton;
@@ -20,18 +20,15 @@ public class ThemeUI extends JFrame {
     public ThemeUI() {
         super("Pacman Theme Menu");
 
-
-
         // Set the layout manager for the frame
         setLayout(new BorderLayout());
 
         // Create a panel for the buttons
         JPanel buttonPanel = new JPanel();
 
-        //set the theme class
+        // set the theme class
         ThemeConfig config = new ThemeConfig();
 
-        
         ImageIcon imgBtn = new ImageIcon(getClass().getResource("/sprite/select_them_1.png"));
         imageButton = new JButton(imgBtn);
         imageButton.setBorderPainted(false);
@@ -45,8 +42,7 @@ public class ThemeUI extends JFrame {
         add(imageButton);
         imageButton.setBounds(135, 40, 150, 150);
 
-
-        //Create the text
+        // Create the text
         ImageIcon nameIcon = new ImageIcon(getClass().getResource("/sprite/text-basketball.png"));
         nameIconbutton = new JButton(nameIcon);
         nameIconbutton.setBorderPainted(false);
@@ -54,7 +50,7 @@ public class ThemeUI extends JFrame {
         add(nameIconbutton);
         nameIconbutton.setBounds(105, 520, 200, 18);
 
-        //Create the text
+        // Create the text
         ImageIcon nameIcon2 = new ImageIcon(getClass().getResource("/sprite/text-christmas.png"));
         nameIconbutton2 = new JButton(nameIcon2);
         nameIconbutton2.setBorderPainted(false);
@@ -62,7 +58,7 @@ public class ThemeUI extends JFrame {
         add(nameIconbutton2);
         nameIconbutton2.setBounds(395, 520, 200, 20);
 
-        //Create the text
+        // Create the text
         ImageIcon nameIcon3 = new ImageIcon(getClass().getResource("/sprite/text-space.png"));
         nameIconbutton3 = new JButton(nameIcon3);
         nameIconbutton3.setBorderPainted(false);
@@ -70,10 +66,9 @@ public class ThemeUI extends JFrame {
         add(nameIconbutton3);
         nameIconbutton3.setBounds(710, 520, 150, 20);
 
-        
-        //********************************************************** */
+        // ********************************************************** */
 
-        //Create the button
+        // Create the button
         ImageIcon basketballIcon = new ImageIcon(getClass().getResource("/sprite/basketball.png"));
         basketballButton = new JButton(basketballIcon);
         basketballButton.setBorderPainted(false);
@@ -119,31 +114,33 @@ public class ThemeUI extends JFrame {
         spaceButton.setBounds(655, 250, 260, 260);
 
         // // Create the Candy button
-        // ImageIcon candyIcon = new ImageIcon(getClass().getResource("/sprite/halloween.png"));
+        // ImageIcon candyIcon = new
+        // ImageIcon(getClass().getResource("/sprite/halloween.png"));
         // candyButton = new JButton(candyIcon);
         // candyButton.setBorderPainted(false);
         // candyButton.setContentAreaFilled(true);
         // candyButton.addActionListener(new ActionListener() {
-        //     public void actionPerformed(ActionEvent e) {
-        //         dispose();
-        //         config.setConfig("3");
-        //         new Launcher().launch();
-        //     }
+        // public void actionPerformed(ActionEvent e) {
+        // dispose();
+        // config.setConfig("3");
+        // new Launcher().launch();
+        // }
         // });
         // add(candyButton);
         // candyButton.setBounds(80, 450, 160, 147);
 
         // // Create the Halloween button
-        // ImageIcon spaceIcon = new ImageIcon(getClass().getResource("/sprite/halloween.png"));
+        // ImageIcon spaceIcon = new
+        // ImageIcon(getClass().getResource("/sprite/halloween.png"));
         // spaceButton = new JButton(spaceIcon);
         // spaceButton.setBorderPainted(false);
         // spaceButton.setContentAreaFilled(true);
         // spaceButton.addActionListener(new ActionListener() {
-        //     public void actionPerformed(ActionEvent e) {
-        //         dispose();
-        //         config.setConfig("4");
-        //         new Launcher().launch();
-        //     }
+        // public void actionPerformed(ActionEvent e) {
+        // dispose();
+        // config.setConfig("4");
+        // new Launcher().launch();
+        // }
         // });
         // add(spaceButton);
         // spaceButton.setBounds(260, 450, 160, 147);
@@ -163,7 +160,6 @@ public class ThemeUI extends JFrame {
         // Set the panel background to black
         buttonPanel.setBackground(Color.BLACK);
 
-
         // Add the button panel to the center of the frame
         add(buttonPanel, BorderLayout.CENTER);
 
@@ -175,14 +171,13 @@ public class ThemeUI extends JFrame {
         setResizable(false);
         setUndecorated(false);
 
-
         // Set the close operation and make the frame visible
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-//        setLayout(new FlowLayout(FlowLayout.CENTER,100,10));
-//        buttonPanel.setPreferredSize(new Dimension(100,300));
-//        buttonPanel.setBackground(Color.GRAY);
+        // setLayout(new FlowLayout(FlowLayout.CENTER,100,10));
+        // buttonPanel.setPreferredSize(new Dimension(100,300));
+        // buttonPanel.setBackground(Color.GRAY);
         buttonPanel.setLayout(new FlowLayout());
     }
 }

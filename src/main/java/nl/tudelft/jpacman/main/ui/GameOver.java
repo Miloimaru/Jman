@@ -1,6 +1,5 @@
 package nl.tudelft.jpacman.main.ui;
-import nl.tudelft.jpacman.Launcher;
-import nl.tudelft.jpacman.ui.ThemeConfig;
+//import nl.tudelft.jpacman.ui.ThemeConfig;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,13 +7,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameOver extends JFrame {
-    private JLabel pacLogo, pacWalk;
+    private JLabel pacWalk;
     private JButton startButton;
     private JButton exitButton;
-    private JTextField textField1;
-    private JButton imageButton;
+
+    // private JTextField textField1;
+    // private JButton imageButton;
     public GameOver() {
-        
+
         super("Game over");
 
         // Set the layout manager for the frame
@@ -22,22 +22,18 @@ public class GameOver extends JFrame {
 
         // Create a panel for the buttons
         JPanel buttonPanel = new JPanel();
-        JPanel imagePanel = new JPanel();
+        // JPanel imagePanel = new JPanel();
 
-        //set the theme class
-        ThemeConfig config = new ThemeConfig();
+        // set the theme class
+        // ThemeConfig config = new ThemeConfig();
 
-        
-        //Image Bg
+        // Image Bg
         ImageIcon pacmanwalkIcon = new ImageIcon(getClass().getResource("/sprite/over.png"));
         pacWalk = new JLabel(pacmanwalkIcon);
         buttonPanel.add(pacWalk);
         pacWalk.setBounds(0, 0, 300, 100);
 
-        
-        
-
-        //Start Button
+        // Start Button
         ImageIcon startbBtn = new ImageIcon(getClass().getResource("/sprite/Back_2.png"));
         startButton = new JButton(startbBtn);
         startButton.setBorderPainted(false);
@@ -77,7 +73,6 @@ public class GameOver extends JFrame {
         setResizable(false);
         setUndecorated(false);
 
-
         // Set the close operation and make the frame visible
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -86,6 +81,4 @@ public class GameOver extends JFrame {
 
     }
 
-
 }
-

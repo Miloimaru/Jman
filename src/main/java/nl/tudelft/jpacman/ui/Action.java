@@ -1,11 +1,11 @@
 package nl.tudelft.jpacman.ui;
 
-import java.awt.*;
+//import java.awt.*;
 
 /**
  * An action that can be executed.
  *
- * @author Jeroen Roosen 
+ * @author Jeroen Roosen
  */
 public interface Action {
 

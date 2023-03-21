@@ -13,10 +13,7 @@ import nl.tudelft.jpacman.level.LevelFactory;
 import nl.tudelft.jpacman.level.MapParser;
 import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.level.PlayerFactory;
-import nl.tudelft.jpacman.main.ui.GameOver;
-import nl.tudelft.jpacman.main.ui.GameVictory;
 import nl.tudelft.jpacman.main.ui.MainMenu;
-import nl.tudelft.jpacman.main.ui.ThemeUI;
 import nl.tudelft.jpacman.npc.ghost.GhostFactory;
 import nl.tudelft.jpacman.points.PointCalculator;
 import nl.tudelft.jpacman.points.PointCalculatorLoader;
@@ -24,7 +21,6 @@ import nl.tudelft.jpacman.sprite.PacManSprites;
 import nl.tudelft.jpacman.ui.Action;
 import nl.tudelft.jpacman.ui.PacManUI;
 import nl.tudelft.jpacman.ui.PacManUiBuilder;
-
 
 /**
  * Creates and launches the JPacMan UI.
@@ -40,10 +36,10 @@ public class Launcher {
     public static PacManUI pacManUI;
     private String levelMap = DEFAULT_MAP;
 
-    //private PacManUI pacManUI;
+    // private PacManUI pacManUI;
     private Game game;
 
-    //private MainMenu menu;
+    // private MainMenu menu;
 
     /**
      * @return The game object this launcher will start when {@link #launch()}
@@ -66,7 +62,7 @@ public class Launcher {
      * Set the name of the file containing this level's map.
      *
      * @param fileName
-     *            Map to be used.
+     *                 Map to be used.
      * @return Level corresponding to the given map.
      */
     public Launcher withMapFile(String fileName) {
@@ -161,7 +157,7 @@ public class Launcher {
      * Adds key events UP, DOWN, LEFT and RIGHT to a game.
      *
      * @param builder
-     *            The {@link PacManUiBuilder} that will provide the UI.
+     *                The {@link PacManUiBuilder} that will provide the UI.
      */
     protected void addSinglePlayerKeys(final PacManUiBuilder builder) {
         builder.addKey(KeyEvent.VK_UP, moveTowardsDirection(Direction.NORTH))
@@ -196,7 +192,6 @@ public class Launcher {
         pacManUI.start();
     }
 
-
     /**
      * Disposes of the UI. For more information see
      * {@link javax.swing.JFrame#dispose()}.
@@ -212,15 +207,15 @@ public class Launcher {
      * Main execution method for the Launcher.
      *
      * @param args
-     *            The command line arguments - which are ignored.
+     *             The command line arguments - which are ignored.
      * @throws IOException
-     *             When a resource could not be read.
+     *                     When a resource could not be read.
      */
 
     public static void main(String[] args) throws IOException {
-        //new ThemeUI();
-       new MainMenu();
-        //new GameVictory();
-        //new GameOver();
+        // new ThemeUI();
+        new MainMenu();
+        // new GameVictory();
+        // new GameOver();
     }
 }
