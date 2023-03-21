@@ -113,38 +113,6 @@ public class ThemeUI extends JFrame {
         add(spaceButton);
         spaceButton.setBounds(655, 250, 260, 260);
 
-        // // Create the Candy button
-        // ImageIcon candyIcon = new
-        // ImageIcon(getClass().getResource("/sprite/halloween.png"));
-        // candyButton = new JButton(candyIcon);
-        // candyButton.setBorderPainted(false);
-        // candyButton.setContentAreaFilled(true);
-        // candyButton.addActionListener(new ActionListener() {
-        // public void actionPerformed(ActionEvent e) {
-        // dispose();
-        // config.setConfig("3");
-        // new Launcher().launch();
-        // }
-        // });
-        // add(candyButton);
-        // candyButton.setBounds(80, 450, 160, 147);
-
-        // // Create the Halloween button
-        // ImageIcon spaceIcon = new
-        // ImageIcon(getClass().getResource("/sprite/halloween.png"));
-        // spaceButton = new JButton(spaceIcon);
-        // spaceButton.setBorderPainted(false);
-        // spaceButton.setContentAreaFilled(true);
-        // spaceButton.addActionListener(new ActionListener() {
-        // public void actionPerformed(ActionEvent e) {
-        // dispose();
-        // config.setConfig("4");
-        // new Launcher().launch();
-        // }
-        // });
-        // add(spaceButton);
-        // spaceButton.setBounds(260, 450, 160, 147);
-
         ImageIcon startbBtn = new ImageIcon(getClass().getResource("/sprite/back_1.png"));
         startButton = new JButton(startbBtn);
         startButton.setBorderPainted(false);

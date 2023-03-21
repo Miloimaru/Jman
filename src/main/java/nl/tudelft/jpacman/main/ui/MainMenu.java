@@ -11,7 +11,7 @@ public class MainMenu extends JFrame {
     // private JLabel pacLogo, pacWalk;
     private JButton startButton;
     private JButton exitButton;
-    private JButton imageButton;
+    private JButton imageButton, imageButton2;
 
     public MainMenu() {
         super("Pacman Main Menu");
@@ -33,11 +33,11 @@ public class MainMenu extends JFrame {
         imageButton.setBounds(200, 50, 600, 229);
 
         ImageIcon imgBtn2 = new ImageIcon(getClass().getResource("/sprite/pacmanwalk.gif"));
-        imageButton = new JButton(imgBtn2);
-        imageButton.setBorderPainted(false);
-        imageButton.setContentAreaFilled(false);
-        add(imageButton);
-        imageButton.setBounds(250, 250, 492, 240);
+        imageButton2 = new JButton(imgBtn2);
+        imageButton2.setBorderPainted(false);
+        imageButton2.setContentAreaFilled(false);
+        add(imageButton2);
+        imageButton2.setBounds(250, 250, 492, 240);
 
         // Start Button
         ImageIcon startbBtn = new ImageIcon(getClass().getResource("/sprite/Start_1.png"));
@@ -91,4 +91,19 @@ public class MainMenu extends JFrame {
 
     }
 
+    public JButton getimageButton1() {
+        return imageButton;
+    }
+
+    public JButton getimageButton2() {
+        return imageButton2;
+    }
+
+    public JButton getstartButton() {
+        return startButton;
+    }
+
+    public JButton getexitButton() {
+        return exitButton;
+    }
 }
