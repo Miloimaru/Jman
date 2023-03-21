@@ -2,10 +2,15 @@ package nl.tudelft.jpacman.game;
 
 import java.util.List;
 
+import nl.tudelft.jpacman.Launcher;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.level.Level;
 import nl.tudelft.jpacman.level.Level.LevelObserver;
 import nl.tudelft.jpacman.level.Player;
+import nl.tudelft.jpacman.main.ui.GameOver;
+import nl.tudelft.jpacman.main.ui.GameVictory;
+import nl.tudelft.jpacman.main.ui.MainMenu;
+import nl.tudelft.jpacman.main.ui.ThemeUI;
 import nl.tudelft.jpacman.points.PointCalculator;
 
 /**
@@ -70,6 +75,21 @@ public abstract class Game implements LevelObserver {
             getLevel().stop();
         }
     }
+    public void restart(){
+        stop();
+        Launcher.pacManUI.dispose();
+        new Launcher().launch();
+    }
+    public void back(){
+        stop();
+        Launcher.pacManUI.dispose();
+        new MainMenu();
+    }
+    public void theme(){
+        stop();
+        Launcher.pacManUI.dispose();
+        new ThemeUI();
+    }
 
     /**
      * @return <code>true</code> iff the game is started and in progress.
@@ -107,14 +127,14 @@ public abstract class Game implements LevelObserver {
     @Override
     public void levelWon() {
         stop();
+        Launcher.pacManUI.dispose();
+        new GameVictory();
     }
 
     @Override
     public void levelLost() {
         stop();
-    }
-
-    public Object setTheme(int i) {
-        return null;
+        Launcher.pacManUI.dispose();
+        new GameOver();
     }
 }

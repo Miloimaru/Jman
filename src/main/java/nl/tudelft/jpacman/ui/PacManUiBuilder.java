@@ -1,11 +1,14 @@
 package nl.tudelft.jpacman.ui;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.ui.ScorePanel.ScoreFormatter;
+
+import javax.swing.*;
 
 /**
  * Builder for the JPac-Man UI.
@@ -23,6 +26,10 @@ public class PacManUiBuilder {
      * Caption for the default start button.
      */
     private static final String START_CAPTION = "Start";
+
+    private static final String RESTART_CAPTION = "Restart";
+    private static final String THEME_CAPTION = "Theme";
+    private static final String BACK_CAPTION = "Back";
 
     /**
      * Map of buttons and their actions.
@@ -66,6 +73,9 @@ public class PacManUiBuilder {
         if (defaultButtons) {
             addStartButton(game);
             addStopButton(game);
+            addRestartButton(game);
+            addThemeButton(game);
+            addBackButton(game);
         }
         return new PacManUI(game, buttons, keyMappings, scoreFormatter);
     }
@@ -83,6 +93,12 @@ public class PacManUiBuilder {
         buttons.put(STOP_CAPTION, game::stop);
     }
 
+    private void addThemeButton(final Game game) {
+        assert game != null;
+
+        buttons.put(THEME_CAPTION, game::theme);
+    }
+
     /**
      * Adds a button with the caption {@value #START_CAPTION} that starts the
      * game.
@@ -94,6 +110,18 @@ public class PacManUiBuilder {
         assert game != null;
 
         buttons.put(START_CAPTION, game::start);
+    }
+
+    private void addRestartButton(final Game game) {
+        assert game != null;
+
+        buttons.put(RESTART_CAPTION, game::restart);
+    }
+
+    private void addBackButton(final Game game) {
+        assert game != null;
+
+        buttons.put(BACK_CAPTION, game::back);
     }
 
     /**
@@ -141,6 +169,9 @@ public class PacManUiBuilder {
         defaultButtons = true;
         buttons.put(START_CAPTION, null);
         buttons.put(STOP_CAPTION, null);
+        buttons.put(RESTART_CAPTION,null);
+        buttons.put(THEME_CAPTION,null);
+        buttons.put(BACK_CAPTION, null);
         return this;
     }
 

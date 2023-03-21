@@ -13,6 +13,10 @@ import nl.tudelft.jpacman.level.LevelFactory;
 import nl.tudelft.jpacman.level.MapParser;
 import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.level.PlayerFactory;
+import nl.tudelft.jpacman.main.ui.GameOver;
+import nl.tudelft.jpacman.main.ui.GameVictory;
+import nl.tudelft.jpacman.main.ui.MainMenu;
+import nl.tudelft.jpacman.main.ui.ThemeUI;
 import nl.tudelft.jpacman.npc.ghost.GhostFactory;
 import nl.tudelft.jpacman.points.PointCalculator;
 import nl.tudelft.jpacman.points.PointCalculatorLoader;
@@ -20,8 +24,7 @@ import nl.tudelft.jpacman.sprite.PacManSprites;
 import nl.tudelft.jpacman.ui.Action;
 import nl.tudelft.jpacman.ui.PacManUI;
 import nl.tudelft.jpacman.ui.PacManUiBuilder;
-import nl.tudelft.jpacman.MainMenu.MainMenuUI;
-import nl.tudelft.jpacman.ThemeMenu.ThemeMenu;
+
 
 /**
  * Creates and launches the JPacMan UI.
@@ -34,12 +37,13 @@ public class Launcher {
     private static final PacManSprites SPRITE_STORE = new PacManSprites();
 
     public static final String DEFAULT_MAP = "/board.txt";
+    public static PacManUI pacManUI;
     private String levelMap = DEFAULT_MAP;
-    private PacManUI pacManUI;
+
+    //private PacManUI pacManUI;
     private Game game;
-    public static int themetype = 0;
-    public static MainMenuUI mainmenu = new MainMenuUI();
-    public static ThemeMenu thememenu = new ThemeMenu();
+
+    //private MainMenu menu;
 
     /**
      * @return The game object this launcher will start when {@link #launch()}
@@ -62,7 +66,7 @@ public class Launcher {
      * Set the name of the file containing this level's map.
      *
      * @param fileName
-     *                 Map to be used.
+     *            Map to be used.
      * @return Level corresponding to the given map.
      */
     public Launcher withMapFile(String fileName) {
@@ -92,42 +96,13 @@ public class Launcher {
      *
      * @return A new level.
      */
-    private Level mapparser;
-
     public Level makeLevel() {
-        System.out.println(thememenu.getThemeType());
-        themetype = thememenu.getThemeType();
-        if (thememenu.getThemeType() == 0) {
-            try {
-                mapparser = getMapParser().parseMap(getLevelMap());
-            } catch (IOException e) {
-                throw new PacmanConfigurationException(
-                        "Unable to create level, name = " + getLevelMap(), e);
-            }
-        } else if (thememenu.getThemeType() == 1) {
-            try {
-                mapparser = getMapParser().parseBasketballMap(getLevelMap());
-            } catch (IOException e) {
-                throw new PacmanConfigurationException(
-                        "Unable to create level, name = " + getLevelMap(), e);
-            }
-        } else if (thememenu.getThemeType() == 2) {
-            try {
-                mapparser = getMapParser().parseStarMap(getLevelMap());
-            } catch (IOException e) {
-                throw new PacmanConfigurationException(
-                        "Unable to create level, name = " + getLevelMap(), e);
-            }
-        } else if (thememenu.getThemeType() == 3) {
-            try {
-                mapparser = getMapParser().parseHolidayMap(getLevelMap());
-            } catch (IOException e) {
-                throw new PacmanConfigurationException(
-                        "Unable to create level, name = " + getLevelMap(), e);
-            }
+        try {
+            return getMapParser().parseMap(getLevelMap());
+        } catch (IOException e) {
+            throw new PacmanConfigurationException(
+                    "Unable to create level, name = " + getLevelMap(), e);
         }
-        return mapparser;
-
     }
 
     /**
@@ -186,7 +161,7 @@ public class Launcher {
      * Adds key events UP, DOWN, LEFT and RIGHT to a game.
      *
      * @param builder
-     *                The {@link PacManUiBuilder} that will provide the UI.
+     *            The {@link PacManUiBuilder} that will provide the UI.
      */
     protected void addSinglePlayerKeys(final PacManUiBuilder builder) {
         builder.addKey(KeyEvent.VK_UP, moveTowardsDirection(Direction.NORTH))
@@ -219,28 +194,8 @@ public class Launcher {
         addSinglePlayerKeys(builder);
         pacManUI = builder.build(getGame());
         pacManUI.start();
-
     }
 
-    public static void MenuOpen() {
-        mainmenu.setVisible(true);
-        System.out.println("menu in launch game...");
-        thememenu.setVisible(false);
-        System.out.println("close menu in launch game...");
-
-    }
-
-    public static void themeMenuOpen() {
-        mainmenu.setVisible(false);
-        System.out.println("close menu in launch game...");
-        thememenu.setVisible(true);
-        System.out.println("theme menu game...");
-    }
-
-    public static int ThemeType() {
-        themetype = thememenu.getThemeType();
-        return themetype;
-    }
 
     /**
      * Disposes of the UI. For more information see
@@ -257,13 +212,15 @@ public class Launcher {
      * Main execution method for the Launcher.
      *
      * @param args
-     *             The command line arguments - which are ignored.
+     *            The command line arguments - which are ignored.
      * @throws IOException
-     *                     When a resource could not be read.
+     *             When a resource could not be read.
      */
 
     public static void main(String[] args) throws IOException {
-        Launcher.MenuOpen();
+        //new ThemeUI();
+       new MainMenu();
+        //new GameVictory();
+        //new GameOver();
     }
-
 }

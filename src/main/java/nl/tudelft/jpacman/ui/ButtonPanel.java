@@ -1,10 +1,9 @@
 package nl.tudelft.jpacman.ui;
 
+import java.awt.*;
 import java.util.Map;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * A panel containing a button for every registered action.
@@ -28,13 +27,59 @@ class ButtonPanel extends JPanel {
         assert buttons != null;
         assert parent != null;
 
-        for (final String caption : buttons.keySet()) {
-            JButton button = new JButton(caption);
-            button.addActionListener(e -> {
-                buttons.get(caption).doAction();
-                parent.requestFocusInWindow();
-            });
-            add(button);
+
+
+        ThemeConfig config = new ThemeConfig();
+        if (config.getConfig()=="0"){
+            setBackground(Color.WHITE);
+            for (final String caption : buttons.keySet()) {
+                ImageIcon icon = new ImageIcon(getClass().getResource("/sprite/" + caption.toLowerCase() + "_i1.png"));
+                JButton button = new JButton(icon);
+                button.addActionListener(e -> {
+                    buttons.get(caption).doAction();
+                    parent.requestFocusInWindow();
+                });
+    
+                button.setBorderPainted(false);
+                button.setContentAreaFilled(false);
+                //button.setBackground(Color.YELLOW);
+                add(button);
+            }
         }
+        else if(config.getConfig()=="1"){
+            setBackground(Color.WHITE);
+            for (final String caption : buttons.keySet()) {
+                ImageIcon icon2 = new ImageIcon(getClass().getResource("/sprite/" + caption.toLowerCase() + "_i2.png"));
+                JButton button2 = new JButton(icon2);
+                button2.addActionListener(e -> {
+                    buttons.get(caption).doAction();
+                    parent.requestFocusInWindow();
+                });
+    
+                button2.setBorderPainted(false);
+                button2.setContentAreaFilled(false);
+                //button.setBackground(Color.YELLOW);
+                add(button2);
+            }
+        }
+        else if(config.getConfig()=="2"){
+            setBackground(Color.decode("#645CBB"));
+            for (final String caption : buttons.keySet()) {
+                ImageIcon icon3 = new ImageIcon(getClass().getResource("/sprite/" + caption.toLowerCase() + "_i3.png"));
+                JButton button3 = new JButton(icon3);
+                button3.addActionListener(e -> {
+                    buttons.get(caption).doAction();
+                    parent.requestFocusInWindow();
+                });
+    
+                button3.setBorderPainted(false);
+                button3.setContentAreaFilled(false);
+                //button.setBackground(Color.YELLOW);
+                add(button3);
+            }
+        }
+        
+       
+
     }
 }
