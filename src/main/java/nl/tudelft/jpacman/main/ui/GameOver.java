@@ -30,8 +30,8 @@ public class GameOver extends JFrame {
         // Image Bg
         ImageIcon pacmanwalkIcon = new ImageIcon(getClass().getResource("/sprite/over.png"));
         pacWalk = new JLabel(pacmanwalkIcon);
-        buttonPanel.add(pacWalk);
         pacWalk.setBounds(0, 0, 300, 100);
+        buttonPanel.add(pacWalk);
 
         // Start Button
         ImageIcon startbBtn = new ImageIcon(getClass().getResource("/sprite/Back_2.png"));
@@ -81,4 +81,15 @@ public class GameOver extends JFrame {
 
     }
 
+    public JLabel getpacWalk() {
+        return pacWalk;
+    }
+
+    public JButton getstartButton() {
+        return startButton;
+    }
+
+    public JButton getexitButton() {
+        return exitButton;
+    }
 }

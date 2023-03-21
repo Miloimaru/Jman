@@ -15,7 +15,7 @@ public class ThemeUI extends JFrame {
     // private JTextField textField1;
     private JButton startButton;
 
-    private JButton imageButton;
+    private JButton imageButton, imageButton2;
 
     public ThemeUI() {
         super("Pacman Theme Menu");
@@ -36,11 +36,11 @@ public class ThemeUI extends JFrame {
         add(imageButton);
         imageButton.setBounds(300, 40, 400, 190);
         ImageIcon imgBtn2 = new ImageIcon(getClass().getResource("/sprite/MM.png"));
-        imageButton = new JButton(imgBtn2);
-        imageButton.setBorderPainted(false);
-        imageButton.setContentAreaFilled(false);
-        add(imageButton);
-        imageButton.setBounds(135, 40, 150, 150);
+        imageButton2 = new JButton(imgBtn2);
+        imageButton2.setBorderPainted(false);
+        imageButton2.setContentAreaFilled(false);
+        add(imageButton2);
+        imageButton2.setBounds(135, 40, 150, 150);
 
         // Create the text
         ImageIcon nameIcon = new ImageIcon(getClass().getResource("/sprite/text-basketball.png"));
@@ -148,4 +148,40 @@ public class ThemeUI extends JFrame {
         // buttonPanel.setBackground(Color.GRAY);
         buttonPanel.setLayout(new FlowLayout());
     }
+
+    public JButton getimageButton1() {
+        return imageButton;
+    }
+
+    public JButton getimageButton2() {
+        return imageButton2;
+    }
+
+    public JButton getBasketballText() {
+        return nameIconbutton;
+    };
+
+    public JButton getchristmasText() {
+        return nameIconbutton2;
+    };
+
+    public JButton getspaceText() {
+        return nameIconbutton3;
+    };
+
+    public JButton getbasketball() {
+        return basketballButton;
+    };
+
+    public JButton getchristmas() {
+        return christmasButton;
+    };
+
+    public JButton getspace() {
+        return spaceButton;
+    };
+
+    public JButton getstartButton() {
+        return startButton;
+    };
 }

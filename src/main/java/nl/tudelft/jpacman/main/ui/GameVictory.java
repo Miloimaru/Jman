@@ -30,9 +30,8 @@ public class GameVictory extends JFrame {
         // Image Bg
         ImageIcon pacmanwalkIcon = new ImageIcon(getClass().getResource("/sprite/victory.png"));
         pacWalk = new JLabel(pacmanwalkIcon);
-        buttonPanel.add(pacWalk);
         pacWalk.setBounds(0, 0, 10, 10);
-
+        buttonPanel.add(pacWalk);
         // Start Button
         ImageIcon startbBtn = new ImageIcon(getClass().getResource("/sprite/Back_2.png"));
         startButton = new JButton(startbBtn);
@@ -79,6 +78,18 @@ public class GameVictory extends JFrame {
 
         buttonPanel.setLayout(new FlowLayout());
 
+    }
+
+    public JLabel getpacWalk() {
+        return pacWalk;
+    }
+
+    public JButton getstartButton() {
+        return startButton;
+    }
+
+    public JButton getexitButton() {
+        return exitButton;
     }
 
 }
