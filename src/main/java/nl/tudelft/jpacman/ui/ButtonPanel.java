@@ -8,7 +8,7 @@ import javax.swing.*;
 /**
  * A panel containing a button for every registered action.
  *
- * @author Jeroen Roosen 
+ * @author Jeroen Roosen
  */
 class ButtonPanel extends JPanel {
 
@@ -19,18 +19,16 @@ class ButtonPanel extends JPanel {
 
     /**
      * Create a new button panel with a button for every action.
+     * 
      * @param buttons The map of caption - action for each button.
-     * @param parent The parent frame, used to return window focus.
+     * @param parent  The parent frame, used to return window focus.
      */
     ButtonPanel(final Map<String, Action> buttons, final JFrame parent) {
         super();
         assert buttons != null;
         assert parent != null;
 
-
-
-        ThemeConfig config = new ThemeConfig();
-        if (config.getConfig()=="0"){
+        if (ThemeConfig.getConfig() == "0") {
             setBackground(Color.WHITE);
             for (final String caption : buttons.keySet()) {
                 ImageIcon icon = new ImageIcon(getClass().getResource("/sprite/" + caption.toLowerCase() + "_i1.png"));
@@ -39,14 +37,13 @@ class ButtonPanel extends JPanel {
                     buttons.get(caption).doAction();
                     parent.requestFocusInWindow();
                 });
-    
+
                 button.setBorderPainted(false);
                 button.setContentAreaFilled(false);
-                //button.setBackground(Color.YELLOW);
+                // button.setBackground(Color.YELLOW);
                 add(button);
             }
-        }
-        else if(config.getConfig()=="1"){
+        } else if (ThemeConfig.getConfig() == "1") {
             setBackground(Color.WHITE);
             for (final String caption : buttons.keySet()) {
                 ImageIcon icon2 = new ImageIcon(getClass().getResource("/sprite/" + caption.toLowerCase() + "_i2.png"));
@@ -55,14 +52,13 @@ class ButtonPanel extends JPanel {
                     buttons.get(caption).doAction();
                     parent.requestFocusInWindow();
                 });
-    
+
                 button2.setBorderPainted(false);
                 button2.setContentAreaFilled(false);
-                //button.setBackground(Color.YELLOW);
+                // button.setBackground(Color.YELLOW);
                 add(button2);
             }
-        }
-        else if(config.getConfig()=="2"){
+        } else if (ThemeConfig.getConfig() == "2") {
             setBackground(Color.decode("#645CBB"));
             for (final String caption : buttons.keySet()) {
                 ImageIcon icon3 = new ImageIcon(getClass().getResource("/sprite/" + caption.toLowerCase() + "_i3.png"));
@@ -71,15 +67,13 @@ class ButtonPanel extends JPanel {
                     buttons.get(caption).doAction();
                     parent.requestFocusInWindow();
                 });
-    
+
                 button3.setBorderPainted(false);
                 button3.setContentAreaFilled(false);
-                //button.setBackground(Color.YELLOW);
+                // button.setBackground(Color.YELLOW);
                 add(button3);
             }
         }
-        
-       
 
     }
 }
